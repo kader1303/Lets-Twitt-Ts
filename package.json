@@ -10,6 +10,9 @@
     "package": "plasmo package"
   },
   "dependencies": {
+    "@tailwindcss/forms": "^0.5.3",
+    "@tailwindcss/typography": "^0.5.9",
+    "axios": "^1.3.4",
     "daisyui": "^2.51.5",
     "plasmo": "0.67.4",
     "react": "18.2.0",

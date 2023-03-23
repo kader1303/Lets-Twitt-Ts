@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import DividerComponent from "~components/dividerComponent";
+import FooterComponent from "~components/footerComponent";
 import { useGetIdeas } from "~hooks/useGetIdeas";
 import useGetTwitt from "~hooks/useGetTwitt";
 import NavbarComponent from './components/navbarComponent';
@@ -42,13 +43,15 @@ function IndexPopup() {
       <NavbarComponent />
       <DividerComponent />
 
+      {/* Generate Ideas */}
       <div className="text-suggestion">
         <button className="btn btn-primary" onClick={handleGenerateIdeas} style={{ marginRight: 10, }}>
           Sugerir Temas
         </button>
-        <textarea className="textarea textarea-primary w-full" placeholder='Las ideas aparecerán aquí' defaultValue={ideas}></textarea>
+        <textarea className="textarea textarea-bordered w-full" placeholder='Las ideas aparecerán aquí' defaultValue={ideas}></textarea>
       </div>
 
+      {/* Generate Twitts */}
       <div className="setidea-container">
         <button className="btn btn-primary" onClick={handleGenerateTwitt} style={{ marginRight: 10, marginTop: 37 }}>
           Generar Twitt
@@ -69,10 +72,14 @@ function IndexPopup() {
         loading &&
         <progress className="progress w-full" style={{marginTop: 10}}></progress>
       }
-
+      
+      {/* Twitt */}
       <div id="twitt-container">
-        <textarea className="textarea textarea-primary w-full" placeholder='Este Twitt se va viral...' style={{marginTop: 20}} defaultValue={twitt}></textarea>
+        <textarea className="textarea textarea-bordered w-full" placeholder='Este Twitt se va viral...' style={{marginTop: 20}} defaultValue={twitt}></textarea>
       </div>
+
+      <FooterComponent/>
+
     </>
   )
 }

@@ -5,6 +5,7 @@ import { useGetIdeas } from "~hooks/useGetIdeas";
 import useGetTwitt from "~hooks/useGetTwitt";
 import NavbarComponent from './components/navbarComponent';
 import "./style.css"
+import * as http from 'http';
 
 function IndexPopup() {
 
@@ -61,7 +62,7 @@ function IndexPopup() {
           <label className="label">
             <span className="label-text">Sobre que quieres Twittear?</span>
           </label>
-          <input type="text" placeholder="Escribe aquí" className="input input-bordered w-full" onChange={handleTemaChange}/>
+          <input type="text" placeholder="Escribe aquí" className="input input-bordered w-full" onChange={handleTemaChange} />
           <label className="label">
           </label>
         </div>
@@ -70,15 +71,15 @@ function IndexPopup() {
       {/* Si se está haciendo un llamado al API establcer Loading... */}
       {
         loading &&
-        <progress className="progress w-full" style={{marginTop: 10}}></progress>
+        <progress className="progress w-full" style={{ marginTop: 10 }}></progress>
       }
-      
+
       {/* Twitt */}
       <div id="twitt-container">
-        <textarea className="textarea textarea-bordered w-full" placeholder='Este Twitt se va viral...' style={{marginTop: 20}} defaultValue={twitt}></textarea>
+        <textarea className="textarea textarea-bordered w-full" placeholder='Este Twitt se va viral...' style={{ marginTop: 20 }} defaultValue={twitt}></textarea>
       </div>
 
-      <FooterComponent/>
+      <FooterComponent />
 
     </>
   )

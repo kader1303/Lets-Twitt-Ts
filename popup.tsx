@@ -113,7 +113,7 @@ function IndexPopup() {
 
       {/* Generate Twitts */}
       <div className="setidea-container">
-        <button className="btn btn-primary" onClick={handleGenerateTwitt} style={{ marginRight: 10, marginTop: 37 }}>
+        <button className="btn btn-primary mr-5 mt-9" onClick={handleGenerateTwitt}>
           Generar Twitt
         </button>
 
@@ -130,12 +130,12 @@ function IndexPopup() {
       {/* Si se está haciendo un llamado al API establcer Loading... */}
       {
         loading &&
-        <progress className="progress w-full" style={{ marginTop: 10 }}></progress>
+        <progress className="progress w-full mt-5"></progress>
       }
 
       {/* Twitt */}
       <div id="twitt-container">
-        <textarea className="textarea textarea-bordered w-full h-32" placeholder='Este Twitt se va viral...' style={{ marginTop: 20 }} defaultValue={twitt}></textarea>
+        <textarea className="textarea textarea-bordered w-full h-32 mt-5" placeholder='Este Twitt se va viral...' defaultValue={twitt}></textarea>
       </div>
 
       <FooterComponent />

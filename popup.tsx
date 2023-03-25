@@ -1,52 +1,111 @@
-import React, { useState } from "react";
-import DividerComponent from "~components/dividerComponent";
+import React, { useState, useEffect } from "react";
 import FooterComponent from "~components/footerComponent";
 import { useGetIdeas } from "~hooks/useGetIdeas";
 import useGetTwitt from "~hooks/useGetTwitt";
 import NavbarComponent from './components/navbarComponent';
 import "./style.css"
-import * as http from 'http';
+import { useFirebase } from '~firebase/hook';
+import useGetUser from "~hooks/useGetUser";
+import type { UserInfoClass } from "~interface/userinterface";
 
 function IndexPopup() {
+
+  const { user } = useFirebase();
 
   const [tema, setTema] = useState('');
   const [twitt, setTwitt] = useState('');
   const [ideas, setIdeas] = useState('');
+  const [warning, setWarning] = useState(false);
+  const [description, setDescription] = useState('');
+
+  const [userinfo, setUserInfo] = useState<UserInfoClass>();
   const [loading, setLoading] = useState(false)
 
   const handleTemaChange = (event) => {
     setTema(event.target.value);
   };
 
-  const handleGenerateTwitt = async () => {
-    setLoading(true);
-
-    const Twitt = await useGetTwitt(tema);
-
-    setLoading(false);
-
-    setTwitt(Twitt.replace(/\n/g, ''));
-    console.log(Twitt);
-  };
-
   const handleGenerateIdeas = async () => {
-    setLoading(true);
 
-    const Ideas = await useGetIdeas();
+    if (user) {
+      setLoading(true);
 
-    setLoading(false);
+      console.log(`Tema: ` + userinfo.themes);
+      const Ideas = await useGetIdeas(userinfo.themes);
 
-    setIdeas('Aquí tienes algunas ideas:' + Ideas);
+      setIdeas('Aquí tienes algunas ideas:' + Ideas);
+      setLoading(false);
+    } else {
+      setWarning(true);
+    }
+
+
   };
+
+  const handleGenerateTwitt = async () => {
+
+    if (user) {
+      setLoading(true);
+
+      const Twitt = await useGetTwitt(tema, description, userinfo.creativity);
+
+      setLoading(false);
+      setTwitt(Twitt.replace(/\n/g, ''));
+    } else {
+      setWarning(true);
+    }
+
+  };
+
+  const getUserObjectives = () => {
+    if (userinfo) {
+      // console.log(`User is signed in. ${userinfo.objectives}`);
+      setDescription(userinfo.objectives);
+    } else {
+      console.log(`No user is signed in.`);
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      useGetUser(user.uid).then((userInfo) => {
+        setUserInfo(userInfo);
+      });
+    } else {
+      setUserInfo(null);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (userinfo && userinfo.objectives) {
+      getUserObjectives();
+    } else {
+      setDescription('');
+    }
+  }, [userinfo]);
 
   return (
     <>
       <NavbarComponent />
-      <DividerComponent />
+      {/* <DividerComponent /> */}
+
+      {
+        warning &&
+        // align div center
+        <div className="fixed alert shadow-lg w-96 z-50 mt-24 ml-14">
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-info flex-shrink-0 w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <span>Debes loguearte para acceder a las funciones</span>
+          </div>
+          <div className="flex-none">
+            <button className="btn btn-sm btn-primary" onClick={() => setWarning(false)}>Acepto</button>
+          </div>
+        </div>
+      }
 
       {/* Generate Ideas */}
-      <div className="text-suggestion">
-        <button className="btn btn-primary" onClick={handleGenerateIdeas} style={{ marginRight: 10, }}>
+      <div className="text-suggestion mt-5">
+        <button className="btn btn-primary mr-5" onClick={handleGenerateIdeas} type='button'>
           Sugerir Temas
         </button>
         <textarea className="textarea textarea-bordered w-full" placeholder='Las ideas aparecerán aquí' defaultValue={ideas}></textarea>
@@ -76,7 +135,7 @@ function IndexPopup() {
 
       {/* Twitt */}
       <div id="twitt-container">
-        <textarea className="textarea textarea-bordered w-full" placeholder='Este Twitt se va viral...' style={{ marginTop: 20 }} defaultValue={twitt}></textarea>
+        <textarea className="textarea textarea-bordered w-full h-32" placeholder='Este Twitt se va viral...' style={{ marginTop: 20 }} defaultValue={twitt}></textarea>
       </div>
 
       <FooterComponent />

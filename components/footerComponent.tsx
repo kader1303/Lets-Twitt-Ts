@@ -1,7 +1,7 @@
 const FooterComponent = () => {
 
     return (
-        <footer className="footer p-4 bg-base-200 bg-opacity-95 rounded-lg text-neutral-content mt-10">
+        <footer className="footer p-4 bg-base-200 bg-opacity-95 rounded-lg text-neutral-content mt-3">
             <div className="items-center flex flex-row">
                 <p className="mr-10 pr-10">Copyright © 2023 - All right reserved</p>
                 <a className="ml-10 pl-5">

@@ -1,10 +1,12 @@
 import LetsTwittApi from "../api/LetsTwittApi";
 
 class TwittDetailsImpl {
-    async twitt(tema) {
+    async twitt(tema, description, creativity) {
         try {
             const response = await LetsTwittApi.put('/letstwitt/gettwitt', {
-                tema: tema,
+                tema,
+                description,
+                creativity
             });
             return response.data;
         } catch (error) {
@@ -15,9 +17,9 @@ class TwittDetailsImpl {
     }
 }
 
-const useGetTwitt = async (tema) => {
+const useGetTwitt = async (tema, description, creativity) => {
     const twittDetails = new TwittDetailsImpl();
-    const response = await twittDetails.twitt(tema);
+    const response = await twittDetails.twitt(tema, description, creativity);
     return response.result.choices[0].text;
 };
 

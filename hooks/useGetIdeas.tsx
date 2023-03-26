@@ -1,16 +1,16 @@
 import LetsTwittApi from "../api/LetsTwittApi";
 
 interface ideaDetails {
-    setIdea(theme: string): Promise<any>;
+    setIdea(objective: string): Promise<any>;
   }
 
 class IdeasDetailsImpl {
     
-    async setIdea(theme: string): Promise<any>{
-        const themeEncoded = encodeURIComponent(theme);
+    async setIdea(objective: string): Promise<any>{
+        const objectiveEncoded = encodeURIComponent(objective);
         // console.log(`Theme encoded: ` + themeEncoded);
         try {
-            const response = await LetsTwittApi.get(`/letstwitt/getideas?ideas=${themeEncoded}`);
+            const response = await LetsTwittApi.get(`/letstwitt/getideas?objectives=${objectiveEncoded}`);
             return response.data;
         } catch (error) {
             console.log('Error: ' + JSON.stringify(error.response?.data));
@@ -20,8 +20,8 @@ class IdeasDetailsImpl {
     }
 }
 
-export const useGetIdeas = async (theme: string) => {
+export const useGetIdeas = async (objective: string) => {
     const ideasDetails = new IdeasDetailsImpl();
-    const response = await ideasDetails.setIdea(theme);
+    const response = await ideasDetails.setIdea(objective);
     return response.result.choices[0].text;
 }

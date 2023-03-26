@@ -30,8 +30,7 @@ function IndexPopup() {
     if (user) {
       setLoading(true);
 
-      console.log(`Tema: ` + userinfo.themes);
-      const Ideas = await useGetIdeas(userinfo.themes);
+      const Ideas = await useGetIdeas(userinfo.objectives);
 
       setIdeas('Aquí tienes algunas ideas:' + Ideas);
       setLoading(false);

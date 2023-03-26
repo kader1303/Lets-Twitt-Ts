@@ -69,8 +69,6 @@ function options() {
     return (
         <>
             <NavbarComponent />
-            {/* <DividerComponent /> */}
-
             {
                 warning &&
                 // align div center
@@ -84,7 +82,7 @@ function options() {
                     </div>
                 </div>
             }
-            
+
             {/* Nombre de la cuenta  */}
             <div className="form-control flex-row mt-5">
 
@@ -111,7 +109,7 @@ function options() {
 
             </div>
 
-            {/* Descripcion para generar ideas de twitts */}
+            {/* Descripcion para generar ideas de twitts
             <div className="form-control">
                 <label className="label">
                     <span className="label-text">Descríbeme sobre que temas quieres que te de ideas</span>
@@ -119,14 +117,14 @@ function options() {
                 <textarea className="textarea textarea-bordered h-20" placeholder="Ejemplo: Dame tres temas para tratar en una cuenta de twitter que responde a una APP de delivery de comida. Varía el objetivo de cada tema de acuerdo a estos parámetros: uno para promoción de la cuenta, otro para aportar valor sobre los beneficios de la comida y otro enfocado en generar interacciones" onChange={handleIdeaChange} value={idea}></textarea>
                 <label className="label">
                 </label>
-            </div>
+            </div> */}
 
             {/* Describe tu cuenta y publico objetivo */}
             <div className="form-control">
                 <label className="label">
                     <span className="label-text">Descríbe tu cuenta y publico objetivo</span>
                 </label>
-                <textarea className="textarea textarea-bordered h-20" placeholder="Ejemplo: Cuenta empresarial que corresponde a una aplicación para móviles que permite a los usuarios pedir comida a domicilio. La aplicación está en proceso de desarrollo pero se quiere comenzar a generar espectativa. Nuestro publico objetivo son cubanos de entre 18 y 60 años de edad." onChange={handleObjectiveChange} value={objective}></textarea>
+                <textarea className="textarea textarea-bordered h-40" placeholder="Ejemplo: Cuenta empresarial que corresponde a una aplicación para móviles que permite a los usuarios pedir comida a domicilio. La aplicación está en proceso de desarrollo pero se quiere comenzar a generar espectativa. Nuestro publico objetivo son cubanos de entre 18 y 60 años de edad." onChange={handleObjectiveChange} value={objective}></textarea>
                 <label className="label">
                 </label>
             </div>

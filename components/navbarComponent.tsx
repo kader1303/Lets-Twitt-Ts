@@ -7,7 +7,7 @@ const NavbarComponent = () => {
 
   return (
 
-    <div className="navbar bg-base-200 bg-opacity-95 shadow-lg w-full" style={{ width: 500, borderRadius: 10 }}>
+    <div className="navbar bg-base-200 bg-opacity-95 shadow-lg w-full rounded-lg">
       <div className="flex-1">
         <a className="btn btn-ghost normal-case text-xl" onClick={() => {
           // Navigate to Home Screen

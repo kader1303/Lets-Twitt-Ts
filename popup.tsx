@@ -56,18 +56,10 @@ function IndexPopup() {
 
   };
 
-  const getUserObjectives = () => {
-    if (userinfo) {
-      // console.log(`User is signed in. ${userinfo.objectives}`);
-      setDescription(userinfo.objectives);
-    } else {
-      console.log(`No user is signed in.`);
-    }
-  };
-
   useEffect(() => {
     if (user) {
       useGetUser(user.uid).then((userInfo) => {
+        console.log('UserInfo: ' + JSON.stringify(userInfo));
         setUserInfo(userInfo);
       });
     } else {
@@ -77,8 +69,10 @@ function IndexPopup() {
 
   useEffect(() => {
     if (userinfo && userinfo.objectives) {
-      getUserObjectives();
+      console.log('objectives: ' + userinfo.objectives);
+      setDescription(userinfo.objectives);
     } else {
+      console.log('Logueate para acceder a las funciones');
       setDescription('');
     }
   }, [userinfo]);

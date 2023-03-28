@@ -49,7 +49,7 @@ export const useFirebase = () => {
     setIsLoading(true);
     if (isEdgeBrowser()) {
       const redirectUrl = chrome.identity.getRedirectURL();
-      console.log(redirectUrl);
+      // console.log(redirectUrl);
       const params = new URLSearchParams({
         response_type: 'token',
         client_id: process.env.PLASMO_PUBLIC_FIREBASE_CLIENT_ID,
@@ -84,18 +84,14 @@ export const useFirebase = () => {
       );
     } else {
       chrome.identity.getAuthToken({ interactive: true }, async function (token) {
-        if (chrome.runtime.lastError || !token) {
-          console.error(chrome.runtime.lastError);
-          setIsLoading(false);
-          return;
-        }
-        if (token) {
+        try {
+          if (!token) throw new Error('Token not found');
           const credential = GoogleAuthProvider.credential(null, token);
-          try {
-            await signInWithCredential(auth, credential);
-          } catch (e) {
-            console.error('Could not log in. ', e);
-          }
+          await signInWithCredential(auth, credential);
+        } catch (error) {
+          console.error('Could not log in. ', error);
+        } finally {
+          setIsLoading(false);
         }
       });
     }
